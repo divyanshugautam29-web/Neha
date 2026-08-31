@@ -4,69 +4,135 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>For Neha My Bacha ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;600&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #ff85a2; --bg: #0a0a0c; }
+        :root { --accent: #ff85a2; --bg-fallback: #1a0a0f; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
         
         body { 
-            background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; 
-            height: 100vh; display: flex; flex-direction: column; 
-            align-items: center; justify-content: center; overflow: hidden;
+            background-color: var(--bg-fallback); 
+            color: #fff; 
+            font-family: 'Poppins', sans-serif; 
+            height: 100vh; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            overflow: hidden; 
+            text-align: center;
         }
 
-        /* Romantic Cinematic Background */
+        /* Romantic Background with Fallback Color */
         .romantic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(10,10,12,0.9)),
+            background: linear-gradient(to bottom, rgba(26, 10, 15, 0.5), rgba(10, 10, 12, 0.9)),
                         url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2070');
             background-size: cover; background-position: center; z-index: -1;
             animation: slowZoom 20s infinite alternate;
         }
 
-        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.1);} }
+        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.05);} }
 
-        /* Splash Screen - Audio Unlock */
+        /* Splash Screen (Parda) */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            text-align: center;
+            transition: opacity 1s ease;
         }
 
         .heart-btn {
             background: none; border: 2px solid var(--accent); color: var(--accent);
-            padding: 15px 40px; font-size: 14px; border-radius: 50px;
+            padding: 18px 45px; font-size: 16px; border-radius: 50px;
             cursor: pointer; letter-spacing: 3px; font-weight: 600;
-            box-shadow: 0 0 20px rgba(255,133,162,0.3); animation: pulse 2s infinite;
+            box-shadow: 0 0 30px rgba(255,133,162,0.4); animation: pulse 2s infinite;
         }
 
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
 
-        /* Main Content */
-        .neha-msg { font-family: 'Dancing Script', cursive; font-size: 3.2rem; color: var(--accent); margin-bottom: 5px; text-shadow: 0 0 15px rgba(255,133,162,0.5); }
-        .sub-tag { font-size: 10px; letter-spacing: 5px; color: #aaa; margin-bottom: 40px; text-transform: uppercase; }
-
-        /* Visual Element (Floating Heart) */
-        .visual-heart {
-            font-size: 80px; margin-bottom: 40px; filter: drop-shadow(0 0 10px var(--accent));
-            animation: float 3s ease-in-out infinite;
+        .neha-msg { 
+            font-family: 'Dancing Script', cursive; 
+            font-size: clamp(2.5rem, 10vw, 3.5rem); 
+            color: var(--accent); 
+            margin-bottom: 10px; 
+            text-shadow: 0 0 20px rgba(255,133,162,0.6); 
         }
 
-        @keyframes float { 0%, 100% {transform: translateY(0);} 50% {transform: translateY(-20px);} }
-
-        /* Modern Glass Player Bar */
-        .player {
-            width: 85%; max-width: 400px; background: rgba(255,255,255,0.07);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 30px; padding: 25px; border: 1px solid rgba(255,255,255,0.15);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        .player-card {
+            width: 85%; max-width: 400px; 
+            background: rgba(255, 255, 255, 0.08); 
+            backdrop-filter: blur(25px); 
+            -webkit-backdrop-filter: blur(25px);
+            border-radius: 35px; padding: 30px; 
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5);
         }
 
-        .track-info { font-size: 12px; color: var(--accent); margin-bottom: 15px; letter-spacing: 2px; font-weight: 500; }
-        .controls { display: flex; justify-content: space-around; align-items: center; }
-        .btn { background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; }
-        .play-main { font-size: 60px; color: var(--accent); }
+        .play-btn { background: none; border: none; color: var(--accent); font-size: 70px; cursor: pointer; line-height: 1; }
 
-        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden; }
-        #progress-fill { width: 0%; height: 100%; backgrou
+        /* Hidden YouTube */
+        #yt-player { position: absolute; top: -1000px; visibility: hidden; }
+    </style>
+</head>
+<body>
+
+    <!-- Splash Screen: Black Parda -->
+    <div id="splash">
+        <p style="color: var(--accent); margin-bottom: 30px; font-family: 'Dancing Script'; font-size: 28px;">For Neha my bacha...</p>
+        <button class="heart-btn" onclick="openWeb()">START MUSIC ❤️</button>
+        <p style="color: #444; margin-top: 40px; font-size: 11px; letter-spacing: 3px;">TAP TO UNLOCK LOVE</p>
+    </div>
+
+    <div class="romantic-bg"></div>
+
+    <div style="z-index: 10;">
+        <h1 class="neha-msg">Neha my bacha</h1>
+        <p style="font-size: 10px; letter-spacing: 5px; color: #ccc; margin-bottom: 30px; text-transform: uppercase;">Pehle se bhi zyada...</p>
+        
+        <div class="player-card">
+            <button class="play-btn" id="main-play" onclick="toggle()">⏵</button>
+            <p style="margin-top: 15px; font-size: 12px; color: var(--accent); letter-spacing: 2px;">Listening with you...</p>
+        </div>
+    </div>
+
+    <div id="yt-player"></div>
+
+    <script src="https://www.youtube.com/iframe_api"></script>
+    <script>
+        let player, isPlaying = false;
+        
+        // YouTube API Load
+        function onYouTubeIframeAPIReady() {
+            player = new YT.Player('yt-player', {
+                height: '0', width: '0',
+                videoId: 'gTfC1AZ6Mqo',
+                playerVars: { 'playsinline': 1, 'rel': 0, 'controls': 0 }
+            });
+        }
+
+        // Start Experience
+        function openWeb() {
+            const splash = document.getElementById('splash');
+            splash.style.opacity = '0';
+            setTimeout(() => { 
+                splash.style.display = 'none'; 
+                player.playVideo();
+                isPlaying = true;
+                document.getElementById('main-play').innerText = '⏸';
+            }, 1000);
+        }
+
+        // Toggle Music
+        function toggle() {
+            const btn = document.getElementById('main-play');
+            if (isPlaying) {
+                player.pauseVideo();
+                btn.innerText = '⏵';
+            } else {
+                player.playVideo();
+                btn.innerText = '⏸';
+            }
+            isPlaying = !isPlaying;
+        }
+    </script>
+</body>
+</html>
