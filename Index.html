@@ -15,89 +15,84 @@
             align-items: center; justify-content: center; overflow: hidden;
         }
 
-        /* Romantic Cinematic Background */
         .romantic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(10,10,12,0.9)),
-                        url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?q=80&w=2070');
+                        url('https://images.unsplash.com/photo-1534796636912-3b95b3ab5986?q=80&w=2070');
             background-size: cover; background-position: center; z-index: -1;
-            animation: slowZoom 20s infinite alternate;
+            animation: slowZoom 25s infinite alternate;
         }
-        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.05);} }
+        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.1);} }
 
-        /* Splash Screen (Parda) */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transition: 0.8s ease;
+            text-align: center; transition: 1s ease;
         }
-
         .heart-btn {
             background: none; border: 2px solid var(--accent); color: var(--accent);
             padding: 18px 45px; font-size: 16px; border-radius: 50px;
             cursor: pointer; letter-spacing: 3px; font-weight: 600;
-            box-shadow: 0 0 30px rgba(255,133,162,0.4); 
+            box-shadow: 0 0 30px rgba(255,133,162,0.3);
         }
-        .ready-animation { animation: pulse 2s infinite; }
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+        .ready-pulse { animation: pulse 2s infinite; }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* Main Content */
-        .neha-msg { font-family: 'Dancing Script', cursive; font-size: 3rem; color: var(--accent); margin-bottom: 5px; text-shadow: 0 0 15px rgba(255,133,162,0.5); }
-        .sub-tag { font-size: 10px; letter-spacing: 5px; color: #aaa; margin-bottom: 30px; text-transform: uppercase; }
+        .neha-msg { font-family: 'Dancing Script', cursive; font-size: 3.5rem; color: var(--accent); margin-bottom: 5px; text-shadow: 0 0 15px rgba(255,133,162,0.5); }
+        .sub-tag { font-size: 10px; letter-spacing: 5px; color: #aaa; margin-bottom: 40px; text-transform: uppercase; }
 
-        /* Spinning Visual */
-        .visual { font-size: 80px; margin-bottom: 30px; }
-        .spinning { animation: rotate 4s linear infinite; display: inline-block; }
+        .visual { font-size: 90px; margin-bottom: 30px; filter: drop-shadow(0 0 10px var(--accent)); }
+        .spinning { animation: rotate 5s linear infinite; display: inline-block; }
         @keyframes rotate { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
-        /* Glass Player Bar */
         .player-bar {
-            width: 92%; max-width: 400px; background: rgba(255,255,255,0.08);
-            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border-radius: 40px; padding: 25px; border: 1px solid rgba(255,255,255,0.2);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5); text-align: center;
+            width: 92%; max-width: 420px; background: rgba(255,255,255,0.07);
+            backdrop-filter: blur(25px); -webkit-backdrop-filter: blur(25px);
+            border-radius: 40px; padding: 30px 20px; border: 1px solid rgba(255,255,255,0.15);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.5); text-align: center;
         }
 
-        .track-info { font-size: 12px; color: var(--accent); margin-bottom: 15px; letter-spacing: 1px; min-height: 18px; }
-        .controls { display: flex; justify-content: space-evenly; align-items: center; }
-        .btn-round { 
-            background: rgba(255,255,255,0.1); border: none; color: #fff; 
-            width: 50px; height: 50px; border-radius: 50%; font-size: 20px;
+        .track-info { font-size: 13px; color: var(--accent); margin-bottom: 25px; letter-spacing: 1px; font-weight: 500; min-height: 20px; }
+        
+        .controls { display: flex; justify-content: center; align-items: center; gap: 25px; }
+        .btn-circle {
+            background: rgba(255,255,255,0.1); border: 1px solid rgba(255,255,255,0.2);
+            color: #fff; width: 55px; height: 55px; border-radius: 50%;
             display: flex; align-items: center; justify-content: center;
+            font-size: 22px; cursor: pointer; transition: 0.3s;
         }
-        .play-trigger { width: 70px; height: 70px; background: var(--accent); color: #000; font-size: 30px; }
+        .play-main { width: 75px; height: 75px; background: var(--accent); color: #000; font-size: 32px; border: none; }
 
-        .progress-box { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden; }
-        #progress-fill { width: 0%; height: 100%; background: var(--accent); }
+        .progress-container { width: 100%; height: 5px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 30px; overflow: hidden; }
+        #progress-fill { width: 0%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
-        /* Hide Video */
-        #yt-player { position: absolute; top: -1000px; left: -1000px; pointer-events: none; }
+        #yt-player { position: absolute; top: -1000px; left: -1000px; }
     </style>
 </head>
 <body>
 
-    <!-- Splash Screen -->
     <div id="splash">
-        <p style="color: var(--accent); margin-bottom: 25px; font-family: 'Dancing Script'; font-size: 24px;">For Neha my bacha...</p>
-        <button class="heart-btn" id="start-btn" onclick="startVibes()" disabled>Loading Vibes...</button>
+        <p style="color: var(--accent); margin-bottom: 25px; font-family: 'Dancing Script'; font-size: 28px;">For Neha my bacha...</p>
+        <button class="heart-btn" id="start-btn" onclick="startExperience()" disabled>Loading Vibes...</button>
+        <p style="color: #444; margin-top: 50px; font-size: 10px; letter-spacing: 2px;">BY DIVYANSHU</p>
     </div>
 
     <div class="romantic-bg"></div>
 
     <h1 class="neha-msg">Neha my bacha</h1>
-    <p class="sub-tag">Pehle se bhi zyada...</p>
+    <p class="sub-tag">Always & Forever</p>
 
     <div class="visual" id="heart-box">❤️</div>
 
     <div class="player-bar">
-        <div class="track-info" id="track-name">Pehle se bhi zyada...</div>
+        <div class="track-info" id="track-name">Loading...</div>
         <div class="controls">
-            <button class="btn-round" onclick="changeTrack(-1)">⏮</button>
-            <button class="btn-round play-trigger" id="master-play" onclick="togglePlay()">⏵</button>
-            <button class="btn-round" onclick="changeTrack(1)">⏭</button>
+            <button class="btn-circle" onclick="changeTrack(-1)">⏮</button>
+            <button class="btn-circle play-main" id="play-trigger" onclick="togglePlay()">⏵</button>
+            <button class="btn-circle" onclick="changeTrack(1)">⏭</button>
         </div>
-        <div class="progress-box">
+        <div class="progress-container">
             <div id="progress-fill"></div>
         </div>
     </div>
@@ -106,84 +101,6 @@
 
     <script>
         const songs = [
-            { id: 'gTfC1AZ6Mqo', name: 'Pehle Se Bhi Zyada' },
-            { id: '6rvUyBiBtik', name: 'Tum Mile - Vibes' },
-            { id: '2eliQ_KR8yA', name: 'Dil Ibadat - Vibes' }
-        ];
-        
-        let trackIdx = 0;
-        let player;
-        let isPlaying = false;
-        let apiReady = false;
-
-        // Load YouTube API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-        function onYouTubeIframeAPIReady() {
-            player = new YT.Player('yt-player', {
-                height: '0', width: '0',
-                videoId: songs[trackIdx].id,
-                playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onStateChange
-                }
-            });
-        }
-
-        function onPlayerReady() {
-            apiReady = true;
-            const startBtn = document.getElementById('start-btn');
-            startBtn.innerText = "START MUSIC ❤️";
-            startBtn.disabled = false;
-            startBtn.classList.add('ready-animation');
-        }
-
-        function startVibes() {
-            if(apiReady) {
-                player.playVideo();
-                document.getElementById('splash').style.opacity = '0';
-                setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 800);
-            }
-        }
-
-        function onStateChange(e) {
-            const btn = document.getElementById('master-play');
-            const heart = document.getElementById('heart-box');
-            const name = document.getElementById('track-name');
-
-            if (e.data == YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                btn.innerText = "⏸";
-                heart.classList.add('spinning');
-                name.innerText = songs[trackIdx].name;
-            } else {
-                isPlaying = false;
-                btn.innerText = "⏵";
-                heart.classList.remove('spinning');
-                if(e.data == YT.PlayerState.ENDED) changeTrack(1);
-            }
-        }
-
-        function togglePlay() {
-            if(isPlaying) player.pauseVideo();
-            else player.playVideo();
-        }
-
-        function changeTrack(dir) {
-            trackIdx = (trackIdx + dir + songs.length) % songs.length;
-            player.loadVideoById(songs[trackIdx].id);
-        }
-
-        setInterval(() => {
-            if(player && isPlaying && player.getCurrentTime) {
-                let pct = (player.getCurrentTime() / player.getDuration()) * 100;
-                document.getElementById('progress-fill').style.width = pct + "%";
-            }
-        }, 1000);
-    </script>
-</body>
-</html>
+            { id: '2eliQ_KR8yA', name: 'Dil Ibadat' },
+            { id: 'kyqJ_FId-_w', name: 'Zara Sa' },
+            { id:
