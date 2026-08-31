@@ -14,10 +14,12 @@
             height: 100vh; display: flex; flex-direction: column; overflow: hidden;
         }
 
+        /* Fast Loading Background */
         .romantic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(10,10,12,0.9)),
-                        url('https://images.unsplash.com/photo-1516589174184-c6852661446c?q=80&w=2070');
+            /* Gradient pehle dikhega, image baad mein load hogi */
+            background: linear-gradient(to bottom, #1a0a0f, #0a0a0c), 
+                        url('https://images.unsplash.com/photo-1516589174184-c6852661446c?auto=format&fit=crop&q=60&w=800');
             background-size: cover; background-position: center; z-index: -1;
             animation: slowZoom 25s infinite alternate;
         }
@@ -27,7 +29,7 @@
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transition: 1s ease;
+            text-align: center; transition: 0.5s ease;
         }
         .heart-btn {
             background: none; border: 2px solid var(--accent); color: var(--accent);
@@ -35,7 +37,7 @@
             cursor: pointer; letter-spacing: 3px; font-weight: 600;
             box-shadow: 0 0 30px rgba(255,133,162,0.3); animation: pulse 2s infinite;
         }
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.1);} 100% {transform: scale(1);} }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
         .container {
             flex: 1; display: flex; flex-direction: column; align-items: center;
@@ -51,19 +53,16 @@
         }
         .song-item {
             display: flex; align-items: center; padding: 12px 15px;
-            border-radius: 15px; margin-bottom: 8px; cursor: pointer;
-            transition: 0.3s; border: 1px solid transparent;
+            border-radius: 15px; margin-bottom: 8px; cursor: pointer; transition: 0.3s;
         }
-        .song-item:hover { background: rgba(255,255,255,0.05); }
-        .song-item.active { background: rgba(255,133,162,0.15); border-color: var(--accent); }
-        .song-item .idx { width: 30px; font-size: 12px; color: var(--accent); flex-shrink: 0; }
-        .song-item .name { flex: 1; font-size: 14px; font-weight: 400; }
+        .song-item.active { background: rgba(255,133,162,0.15); border-color: var(--accent); border: 1px solid var(--accent); }
+        .song-item .idx { width: 30px; font-size: 12px; color: var(--accent); }
+        .song-item .name { flex: 1; font-size: 14px; }
 
         .player-bar {
             position: fixed; bottom: 0; width: 100%;
-            background: rgba(15, 15, 15, 0.98); backdrop-filter: blur(30px);
-            -webkit-backdrop-filter: blur(30px);
-            border-top: 1px solid rgba(255,255,255,0.15);
+            background: rgba(10, 10, 10, 0.95); backdrop-filter: blur(20px);
+            border-top: 1px solid rgba(255,255,255,0.1);
             padding: 15px 20px 25px 20px; z-index: 1000;
             display: flex; flex-direction: column; align-items: center;
         }
@@ -73,36 +72,32 @@
         .time-label { font-size: 10px; color: #888; width: 35px; text-align: center; }
 
         .main-controls { display: flex; align-items: center; gap: 25px; margin-bottom: 10px;}
-        .btn { background: none; border: none; color: #fff; font-size: 26px; cursor: pointer; }
+        .btn { background: none; border: none; color: #fff; font-size: 26px; }
         .play-btn { width: 55px; height: 55px; background: var(--accent); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
 
-        .volume-box { display: flex; align-items: center; gap: 10px; width: 140px; opacity: 0.8; }
-        .volume-box span { font-size: 12px; }
+        .volume-box { display: flex; align-items: center; gap: 10px; width: 130px; opacity: 0.6; }
 
-        #yt-player { position: absolute; top: -1000px; left: -1000px; }
+        #yt-player { position: absolute; top: -1000px; left: -1000px; visibility: hidden; }
     </style>
 </head>
 <body>
 
     <div id="splash">
         <p style="color: var(--accent); margin-bottom: 25px; font-family: 'Dancing Script'; font-size: 28px;">For Neha my bacha...</p>
-        <button class="heart-btn" id="start-btn" onclick="startExperience()" disabled>Loading Vibes...</button>
+        <button class="heart-btn" id="start-btn" onclick="startExperience()">START MUSIC ❤️</button>
     </div>
 
     <div class="romantic-bg"></div>
 
     <div class="container">
         <h1 class="neha-msg">Neha my bacha</h1>
-        <p style="font-size: 10px; letter-spacing: 5px; color: #777; text-transform: uppercase; text-align: center;">Divyanshu Mixtape</p>
+        <p style="font-size: 10px; letter-spacing: 5px; color: #777; text-transform: uppercase; text-align: center;">Divyanshu Playlist</p>
 
-        <div class="playlist" id="playlist-container">
-            <!-- Playlist items injected by JavaScript -->
-        </div>
+        <div class="playlist" id="playlist-container"></div>
     </div>
 
-    <!-- Fixed Bottom Player -->
     <div class="player-bar">
-        <div id="current-track-name" style="font-size: 12px; color: var(--accent); margin-bottom: 12px; font-weight: 500; text-align: center; width: 100%; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding: 0 10px;">Select a song</div>
+        <div id="current-track-name" style="font-size: 12px; color: var(--accent); margin-bottom: 12px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Select a song</div>
         
         <div class="seek-container">
             <span class="time-label" id="time-curr">0:00</span>
@@ -126,7 +121,6 @@
     <div id="yt-player"></div>
 
     <script>
-        // Shortened Song Titles
         const songs = [
             { id: 'wsflx5Zr5p4', name: 'I Love You - Bodyguard' },
             { id: 'r_lxE7kF0Fo', name: 'Tu Chahiye - Bajrangi Bhaijaan' },
@@ -137,12 +131,9 @@
             { id: 'qpIdoaaPa6U', name: 'Main Hoon Hero Tera' }
         ];
         
-        let trackIdx = 0;
-        let player;
-        let isPlaying = false;
-        let isReady = false;
+        let trackIdx = 0, player, isPlaying = false, isReady = false;
 
-        // Render Playlist
+        // Render Playlist Instantly
         const playlistContainer = document.getElementById('playlist-container');
         songs.forEach((song, index) => {
             const item = document.createElement('div');
@@ -164,52 +155,44 @@
                 height: '0', width: '0',
                 videoId: songs[trackIdx].id,
                 playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
-                events: {
-                    'onReady': onPlayerReady,
-                    'onStateChange': onPlayerStateChange
-                }
+                events: { 'onReady': () => { isReady = true; }, 'onStateChange': onStateChange }
             });
         }
 
-        function onPlayerReady() {
-            isReady = true;
-            const sBtn = document.getElementById('start-btn');
-            sBtn.innerText = "START VIBES ❤️";
-            sBtn.disabled = false;
-            sBtn.classList.add('ready-pulse');
-            setupMediaSession();
-        }
-
         function startExperience() {
-            if(isReady) {
-                playSpecificSong(0);
-                document.getElementById('splash').style.opacity = '0';
-                setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 1000);
-            }
+            // Instant hide splash
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => { document.getElementById('splash').style.display = 'none'; }, 500);
+            
+            // Try playing
+            const checkReady = setInterval(() => {
+                if (isReady) {
+                    playSpecificSong(0);
+                    clearInterval(checkReady);
+                }
+            }, 100);
         }
 
         function onStateChange(event) {
             const btn = document.getElementById('play-trigger');
             if (event.data == YT.PlayerState.PLAYING) {
-                isPlaying = true;
-                btn.innerText = "⏸";
+                isPlaying = true; btn.innerText = "⏸";
                 updateMediaMetadata();
             } else {
-                isPlaying = false;
-                btn.innerText = "⏵";
+                isPlaying = false; btn.innerText = "⏵";
                 if(event.data == YT.PlayerState.ENDED) changeTrack(1);
             }
         }
 
-        function togglePlay() {
-            isPlaying ? player.pauseVideo() : player.playVideo();
-        }
+        function togglePlay() { isPlaying ? player.pauseVideo() : player.playVideo(); }
 
         function playSpecificSong(index) {
             trackIdx = index;
-            player.loadVideoById(songs[trackIdx].id);
-            updatePlaylistUI();
-            document.getElementById('current-track-name').innerText = songs[trackIdx].name;
+            if(isReady) {
+                player.loadVideoById(songs[trackIdx].id);
+                updatePlaylistUI();
+                document.getElementById('current-track-name').innerText = songs[trackIdx].name;
+            }
         }
 
         function changeTrack(dir) {
@@ -219,43 +202,42 @@
 
         function updatePlaylistUI() {
             document.querySelectorAll('.song-item').forEach(el => el.classList.remove('active'));
-            const activeItem = document.getElementById(`song-${trackIdx}`);
-            if(activeItem) activeItem.classList.add('active');
+            document.getElementById(`song-${trackIdx}`).classList.add('active');
         }
 
-        // Seeking (Aage-Piche)
         const seekBar = document.getElementById('seek-bar');
-        seekBar.oninput = function() {
-            const seekTo = (player.getDuration() * (seekBar.value / 100));
-            player.seekTo(seekTo);
-        };
+        seekBar.oninput = function() { player.seekTo(player.getDuration() * (seekBar.value / 100)); };
 
-        // Volume Slider
         const volumeBar = document.getElementById('volume-bar');
-        volumeBar.oninput = function() {
-            player.setVolume(volumeBar.value);
-        };
+        volumeBar.oninput = function() { player.setVolume(volumeBar.value); };
 
         function formatTime(time) {
-            const min = Math.floor(time / 60);
-            const sec = Math.floor(time % 60);
+            const min = Math.floor(time / 60), sec = Math.floor(time % 60);
             return `${min}:${sec < 10 ? '0' + sec : sec}`;
         }
 
         setInterval(() => {
             if (player && isPlaying && player.getCurrentTime) {
-                const curr = player.getCurrentTime();
-                const dur = player.getDuration();
+                const curr = player.getCurrentTime(), dur = player.getDuration();
                 document.getElementById('time-curr').innerText = formatTime(curr);
                 document.getElementById('time-total').innerText = formatTime(dur);
                 seekBar.value = (curr / dur) * 100;
             }
         }, 1000);
 
-        // Background / Media Session API
-        function setupMediaSession() {
+        function updateMediaMetadata() {
             if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: songs[trackIdx].name,
+                    artist: 'Neha my bacha ❤️',
+                    artwork: [{ src: 'https://images.unsplash.com/photo-1516589174184-c6852661446c?auto=format&fit=crop&q=60&w=512', sizes: '512x512', type: 'image/jpeg' }]
+                });
                 navigator.mediaSession.setActionHandler('play', () => player.playVideo());
                 navigator.mediaSession.setActionHandler('pause', () => player.pauseVideo());
                 navigator.mediaSession.setActionHandler('previoustrack', () => changeTrack(-1));
-                navigator
+                navigator.mediaSession.setActionHandler('nexttrack', () => changeTrack(1));
+            }
+        }
+    </script>
+</body>
+</html>
