@@ -14,6 +14,7 @@
             height: 100vh; display: flex; flex-direction: column; overflow: hidden;
         }
 
+        /* Romantic Background */
         .romantic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: linear-gradient(to bottom, #1a0a0f, #0a0a0c), 
@@ -23,29 +24,29 @@
         }
         @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.05);} }
 
-        /* Splash Screen */
+        /* Splash Screen (Parda) */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
             background: #000; z-index: 10000; display: flex;
             flex-direction: column; align-items: center; justify-content: center;
-            text-align: center;
+            text-align: center; transition: 0.6s ease;
         }
         .heart-btn {
             background: none; border: 2px solid var(--accent); color: var(--accent);
             padding: 18px 45px; font-size: 16px; border-radius: 50px;
             cursor: pointer; letter-spacing: 3px; font-weight: 600;
-            box-shadow: 0 0 30px rgba(255,133,162,0.3); transition: 0.3s;
+            box-shadow: 0 0 30px rgba(255,133,162,0.3); animation: pulse 2s infinite;
         }
-        .btn-ready { animation: pulse 2s infinite; border-color: #fff; color: #fff; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
         .container {
             flex: 1; display: flex; flex-direction: column; align-items: center;
-            padding: 20px; padding-bottom: 220px; overflow-y: auto;
+            padding: 20px; padding-bottom: 230px; overflow-y: auto;
         }
 
         .neha-msg { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--accent); margin-top: 20px; text-shadow: 0 0 15px rgba(255,133,162,0.5); text-align: center;}
 
+        /* Playlist Styles */
         .playlist {
             width: 100%; max-width: 450px; margin-top: 30px;
             background: var(--glass); border-radius: 25px;
@@ -57,8 +58,9 @@
         }
         .song-item.active { background: rgba(255,133,162,0.2); border: 1px solid var(--accent); }
         .song-item .idx { width: 30px; font-size: 12px; color: var(--accent); }
-        .song-item .name { flex: 1; font-size: 13px; font-weight: 400; }
+        .song-item .name { flex: 1; font-size: 13px; }
 
+        /* Player Bar */
         .player-bar {
             position: fixed; bottom: 0; width: 100%;
             background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(25px);
@@ -78,13 +80,15 @@
         .volume-box { display: flex; align-items: center; gap: 10px; width: 130px; opacity: 0.6; }
 
         #yt-player { position: absolute; top: -1000px; left: -1000px; visibility: hidden; }
+        .container::-webkit-scrollbar { width: 0px; }
     </style>
 </head>
 <body>
 
     <div id="splash">
         <p style="color: var(--accent); margin-bottom: 25px; font-family: 'Dancing Script'; font-size: 28px;">For Neha my bacha...</p>
-        <button class="heart-btn" id="start-btn" onclick="initExperience()">Wait a second...</button>
+        <button class="heart-btn" id="start-btn" onclick="forceStart()">ENTER ❤️</button>
+        <p id="loading-txt" style="color: #444; margin-top: 20px; font-size: 10px;">Loading your vibes...</p>
     </div>
 
     <div class="romantic-bg"></div>
@@ -138,6 +142,7 @@
         
         let trackIdx = 0, player, isPlaying = false, isReady = false;
 
+        // Render Playlist
         const playlistContainer = document.getElementById('playlist-container');
         songs.forEach((song, index) => {
             const item = document.createElement('div');
@@ -148,6 +153,7 @@
             playlistContainer.appendChild(item);
         });
 
+        // Load YouTube API
         var tag = document.createElement('script');
         tag.src = "https://www.youtube.com/iframe_api";
         var firstScriptTag = document.getElementsByTagName('script')[0];
@@ -159,30 +165,29 @@
                 videoId: songs[trackIdx].id,
                 playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
                 events: { 
-                    'onReady': () => { 
-                        isReady = true; 
-                        const btn = document.getElementById('start-btn');
-                        btn.innerText = "ENTER ❤️";
-                        btn.classList.add('btn-ready');
-                    }, 
-                    'onStateChange': onPlayerStateChange 
+                    'onReady': () => { isReady = true; document.getElementById('loading-txt').innerText = "Ready for Neha ❤️"; }, 
+                    'onStateChange': onStateChange 
                 }
             });
         }
 
-        function initExperience() {
-            if(!isReady) return;
-            // Force play and fade splash
-            player.playVideo();
-            player.unMute();
-            document.getElementById('splash').style.opacity = '0';
-            setTimeout(() => { 
-                document.getElementById('splash').style.display = 'none';
+        // Force Start: Ab ye kabhi freeze nahi hoga
+        function forceStart() {
+            const splash = document.getElementById('splash');
+            splash.style.opacity = '0';
+            setTimeout(() => { splash.style.display = 'none'; }, 600);
+
+            if(player && player.playVideo) {
+                player.playVideo();
+                player.unMute();
                 playSpecificSong(0);
-            }, 600);
+            } else {
+                // Agar API late hai, toh 1 sec baad phir try karega
+                setTimeout(() => { playSpecificSong(0); }, 1500);
+            }
         }
 
-        function onPlayerStateChange(event) {
+        function onStateChange(event) {
             const btn = document.getElementById('play-trigger');
             if (event.data == YT.PlayerState.PLAYING) {
                 isPlaying = true; btn.innerText = "⏸";
@@ -215,9 +220,11 @@
             if(activeItem) activeItem.classList.add('active');
         }
 
+        // Seeking (Aage-Piche)
         const seekBar = document.getElementById('seek-bar');
         seekBar.oninput = function() { player.seekTo(player.getDuration() * (seekBar.value / 100)); };
 
+        // Volume Slider
         const volumeBar = document.getElementById('volume-bar');
         volumeBar.oninput = function() { player.setVolume(volumeBar.value); };
 
@@ -230,4 +237,24 @@
             if (player && isPlaying && player.getCurrentTime) {
                 const curr = player.getCurrentTime(), dur = player.getDuration();
                 document.getElementById('time-curr').innerText = formatTime(curr);
-                document.getElementById('time-total').innerText = formatTim
+                document.getElementById('time-total').innerText = formatTime(dur);
+                seekBar.value = (curr / dur) * 100;
+            }
+        }, 1000);
+
+        function updateMediaMetadata() {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: songs[trackIdx].name,
+                    artist: 'Neha my bacha ❤️',
+                    artwork: [{ src: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&q=80&w=512', sizes: '512x512', type: 'image/jpeg' }]
+                });
+                navigator.mediaSession.setActionHandler('play', () => player.playVideo());
+                navigator.mediaSession.setActionHandler('pause', () => player.pauseVideo());
+                navigator.mediaSession.setActionHandler('previoustrack', () => changeTrack(-1));
+                navigator.mediaSession.setActionHandler('nexttrack', () => changeTrack(1));
+            }
+        }
+    </script>
+</body>
+</html>
