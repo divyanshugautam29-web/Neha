@@ -3,187 +3,217 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>90s Romantic | For Neha ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,400&family=Poppins:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
+    <title>90s & Romantic | Mixtape</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@1,600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --vintage: #d4a373;
-            --rose: #e5989b;
-            --dark: #0f0a0a;
-            --glass: rgba(255, 255, 255, 0.08);
-        }
-
+        :root { --accent: #ff85a2; --vintage: #d4a373; --bg: #0a0a0c; }
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-
-        body {
-            background-color: var(--dark);
-            color: #fefae0;
-            font-family: 'Poppins', sans-serif;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
+        
+        body { 
+            background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; 
+            height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; overflow: hidden;
         }
 
-        /* --- Retro Cinematic BG --- */
-        .vignette {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle, transparent 30%, black 150%);
-            z-index: 2; pointer-events: none;
-        }
-
-        .grain {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
-            opacity: 0.05; z-index: 3; pointer-events: none;
-        }
-
+        /* Background: Fast Loading & Romantic */
         .romantic-bg {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(rgba(15, 10, 10, 0.7), rgba(15, 10, 10, 0.8)),
-                        url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?q=80&w=2070');
-            background-size: cover; background-position: center;
-            z-index: -1; animation: slowZoom 30s infinite alternate;
+            background: linear-gradient(to bottom, rgba(0,0,0,0.7), #0a0a0c), 
+                        url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=1000');
+            background-size: cover; background-position: center; z-index: -1;
+            filter: sepia(20%); animation: slowZoom 30s infinite alternate;
         }
+        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.05);} }
 
-        @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
-
-        /* --- Splash Screen (Freeze Fix) --- */
+        /* Splash Screen (Optimized: No Freeze) */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+            background: #000; z-index: 10000; display: flex;
+            flex-direction: column; align-items: center; justify-content: center; text-align: center;
+            transition: 0.6s ease;
         }
-
-        .heart-loader {
-            font-size: 60px; margin-bottom: 20px;
-            animation: beat 1.2s infinite; cursor: pointer;
-        }
-
-        @keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.2); } }
-
         .enter-btn {
-            background: none; border: 1px solid var(--vintage);
-            color: var(--vintage); padding: 15px 40px;
-            font-family: 'Space Mono', monospace; cursor: pointer;
-            letter-spacing: 4px; border-radius: 50px;
+            background: none; border: 2px solid var(--vintage); color: var(--vintage);
+            padding: 18px 45px; font-size: 16px; border-radius: 50px;
+            cursor: pointer; letter-spacing: 4px; font-weight: 600;
+            box-shadow: 0 0 30px rgba(212, 163, 115, 0.2); animation: pulse 2s infinite;
         }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* --- Content --- */
-        .header { text-align: center; margin-bottom: 30px; z-index: 5; }
-        .neha-msg { font-family: 'Dancing Script', cursive; font-size: 2.5rem; color: var(--rose); text-shadow: 0 0 15px rgba(229,152,155,0.4); }
-        .title-90s { font-family: 'Playfair Display', serif; font-style: italic; font-size: 1.2rem; opacity: 0.7; letter-spacing: 2px; }
+        /* Main UI */
+        .main-title { font-family: 'Playfair Display', serif; font-style: italic; font-size: 2.5rem; color: var(--accent); margin-bottom: 5px; text-shadow: 0 0 15px rgba(255,133,162,0.4); }
+        .sub-tag { font-size: 10px; letter-spacing: 5px; color: #777; margin-bottom: 30px; text-transform: uppercase; }
 
-        /* --- Walkman Visual --- */
-        .walkman-container {
-            width: 280px; margin-bottom: 40px;
-            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.6));
-            z-index: 4;
-        }
+        /* Walkman SVG */
+        .walkman-box { width: 280px; margin-bottom: 30px; filter: drop-shadow(0 20px 50px rgba(0,0,0,0.8)); }
+        .reel { transform-origin: center; transform-box: fill-box; }
+        .spinning { animation: rotate 4s linear infinite; }
+        @keyframes rotate { from {transform: rotate(0deg);} to {transform: rotate(360deg);} }
 
-        .spinning { animation: rotate 4s linear infinite; transform-origin: center; transform-box: fill-box; }
-        @keyframes rotate { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-
-        /* --- Glass Music Player --- */
+        /* Glass Player Bar */
         .player-bar {
-            width: 90%; max-width: 400px;
-            background: var(--glass); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
-            border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 30px;
-            padding: 20px; z-index: 100; text-align: center;
+            width: 90%; max-width: 400px; background: rgba(255,255,255,0.06);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
+            border-radius: 35px; padding: 25px; border: 1px solid rgba(255,255,255,0.1);
+            text-align: center;
         }
 
-        .track-info { font-size: 12px; color: var(--rose); margin-bottom: 15px; letter-spacing: 1px; font-weight: 500; }
-        
-        .controls { display: flex; justify-content: center; align-items: center; gap: 30px; }
-        .btn-circle {
-            background: rgba(255,255,255,0.1); border: none; color: #fff;
-            width: 50px; height: 50px; border-radius: 50%; font-size: 20px;
-            display: flex; align-items: center; justify-content: center;
-        }
+        .track-info { font-size: 12px; color: var(--vintage); margin-bottom: 15px; letter-spacing: 1px; min-height: 18px; font-weight: 500; }
+        .controls { display: flex; justify-content: space-evenly; align-items: center; }
+        .btn { background: none; border: none; color: #fff; font-size: 30px; cursor: pointer; transition: 0.2s; }
+        .btn:active { transform: scale(0.9); }
+        .play-main { font-size: 55px; color: var(--accent); }
 
-        .play-trigger { width: 65px; height: 65px; background: var(--rose); color: #000; font-size: 30px; }
+        .progress-box { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 25px; overflow: hidden; }
+        #progress-fill { width: 0%; height: 100%; background: var(--accent); box-shadow: 0 0 10px var(--accent); }
 
-        .progress-container { width: 100%; height: 4px; background: rgba(255,255,255,0.1); border-radius: 10px; margin-top: 20px; overflow: hidden; }
-        #progress-fill { width: 0%; height: 100%; background: var(--rose); box-shadow: 0 0 10px var(--rose); }
-
-        #yt-player { position: absolute; top: -1000px; left: -1000px; visibility: hidden; }
+        /* Hidden YT container for background stability */
+        #yt-wrap { position: absolute; top: -100px; left: 0; width: 1px; height: 1px; opacity: 0.01; }
     </style>
 </head>
 <body>
 
+    <!-- Splash Screen -->
     <div id="splash">
-        <div class="heart-loader" onclick="startExperience()">❤️</div>
-        <button class="enter-btn" onclick="startExperience()">ENTER MEMORIES</button>
-        <p style="color: #444; margin-top: 20px; font-size: 10px; letter-spacing: 2px;">90s ROMANTIC HITS</p>
+        <h2 style="color: #fff; font-family: 'Playfair Display'; font-style: italic; margin-bottom: 30px;">90s Romantic Tape...</h2>
+        <button class="enter-btn" onclick="startVibes()">ENTER MEMORIES ❤️</button>
+        <p style="color: #444; margin-top: 30px; font-size: 10px; letter-spacing: 2px;">ZERO LOADING DELAY</p>
     </div>
 
-    <div class="vignette"></div>
-    <div class="grain"></div>
     <div class="romantic-bg"></div>
 
-    <div class="header">
-        <h1 class="neha-msg">Neha my bacha</h1>
-        <p class="title-90s">90s & Romantic Mixtape</p>
-    </div>
+    <h1 class="main-title">90s & Romantic</h1>
+    <p class="sub-tag">The Mixtape Edition</p>
 
-    <div class="walkman-container" onclick="sparkle(event)">
+    <div class="walkman-box">
         <svg viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
-            <rect x="50" y="50" width="400" height="250" rx="15" fill="#1a1a1a" stroke="#333" stroke-width="2"/>
-            <rect x="80" y="80" width="340" height="110" rx="5" fill="#2a2a2a"/>
-            <circle class="reel" id="r1" cx="160" cy="135" r="35" stroke="#d4a373" stroke-width="2" stroke-dasharray="10,5"/>
-            <circle class="reel" id="r2" cx="340" cy="135" r="35" stroke="#d4a373" stroke-width="2" stroke-dasharray="10,5"/>
-            <text x="140" y="240" fill="#444" font-family="Space Mono" font-size="14">SIDE A: ROMANCE 90s</text>
+            <rect x="50" y="50" width="400" height="250" rx="15" fill="#181818" stroke="#333" stroke-width="2"/>
+            <rect x="85" y="85" width="330" height="110" rx="5" fill="#222"/>
+            <circle class="reel" id="r1" cx="165" cy="140" r="35" stroke="#d4a373" stroke-width="2" stroke-dasharray="12,8"/>
+            <circle class="reel" id="r2" cx="335" cy="140" r="35" stroke="#d4a373" stroke-width="2" stroke-dasharray="12,8"/>
+            <text x="140" y="245" fill="#444" font-family="monospace" font-size="14">HIGH FIDELITY AUDIO</text>
         </svg>
     </div>
 
     <div class="player-bar">
-        <div class="track-info" id="track-name">Loading Tape...</div>
+        <div class="track-info" id="track-name">Tape Status: Ready</div>
         <div class="controls">
-            <button class="btn-circle" onclick="changeTrack(-1)">⏮</button>
-            <button class="btn-circle play-trigger" id="p-btn" onclick="togglePlay()">⏵</button>
-            <button class="btn-circle" onclick="changeTrack(1)">⏭</button>
+            <button class="btn" onclick="changeTrack(-1)">⏮</button>
+            <button class="btn play-main" id="play-trigger" onclick="togglePlay()">⏵</button>
+            <button class="btn" onclick="changeTrack(1)">⏭</button>
         </div>
-        <div class="progress-container">
+        <div class="progress-box">
             <div id="progress-fill"></div>
         </div>
     </div>
 
-    <div id="yt-player"></div>
+    <div id="yt-wrap"><div id="yt-player"></div></div>
 
-    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const musicId = 'ON6qVMlxqqI';
-        let player, isPlaying = false, isReady = false;
+        const songs = [
+            { id: 'ON6qVMlxqqI', name: '90s Romantic Hits' },
+            { id: '2eliQ_KR8yA', name: 'Dil Ibadat - Vibes' },
+            { id: 'wsflx5Zr5p4', name: 'I Love You - Bodyguard' },
+            { id: 'kyqJ_FId-_w', name: 'Zara Sa - Jannat' },
+            { id: 'LmBsyzzX5aA', name: 'Tum Mile - Title Track' },
+            { id: 'vJQCAtzSfuo', name: 'Tu Hi Meri Shab Hai' },
+            { id: 'j18MRhEfmPk', name: 'Phir Mohabbat - Murder 2' },
+            { id: 'gTfC1AZ6Mqo', name: 'Pehle Se Bhi Zyada' }
+        ];
+        
+        let trackIdx = 0, player, isPlaying = false, apiReady = false;
+
+        // Load YouTube API Script
+        const tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        document.head.appendChild(tag);
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
-                height: '0', width: '0',
-                videoId: musicId,
+                height: '200', width: '200',
+                videoId: songs[trackIdx].id,
                 playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
-                events: { 
-                    'onReady': () => { isReady = true; }, 
-                    'onStateChange': onStateChange 
+                events: {
+                    'onReady': () => { apiReady = true; setupMediaSession(); },
+                    'onStateChange': onPlayerStateChange
                 }
             });
         }
 
-        // Freeze Fix: Ye function bina kisi delay ke parda hata dega
-        function startExperience() {
+        // START VIBES: Works instantly without freezing
+        function startVibes() {
             const splash = document.getElementById('splash');
             splash.style.opacity = '0';
             setTimeout(() => { splash.style.display = 'none'; }, 600);
 
-            // Force interaction for music
-            if(isReady) {
-                player.playVideo();
-                player.unMute();
+            // Trigger music logic
+            const checkAndPlay = setInterval(() => {
+                if (apiReady && player) {
+                    player.playVideo();
+                    player.unMute();
+                    clearInterval(checkAndPlay);
+                }
+            }, 100);
+
+            // Fail-safe: if API fails, at least hide the splash
+            setTimeout(() => clearInterval(checkAndPlay), 5000);
+        }
+
+        function onPlayerStateChange(event) {
+            const btn = document.getElementById('play-trigger');
+            const name = document.getElementById('track-name');
+            const reels = document.querySelectorAll('.reel');
+
+            if (event.data == YT.PlayerState.PLAYING) {
+                isPlaying = true;
+                btn.innerText = "⏸";
+                name.innerText = songs[trackIdx].name;
+                reels.forEach(r => r.classList.add('spinning'));
+                updateMediaMetadata();
             } else {
-                // Agar API thodi slow hai toh 1 sec baad retry
-                setTimeout(() => { if(player.playVideo) player.playVideo(); }, 1000);
+                isPlaying = false;
+                btn.innerText = "⏵";
+                reels.forEach(r => r.classList.remove('spinning'));
+                if(event.data == YT.PlayerState.ENDED) changeTrack(1);
             }
         }
 
-        function onStateChange(e) {
+        function togglePlay() {
+            if(!player) return;
+            isPlaying ? player.pauseVideo() : player.playVideo();
+        }
+
+        function changeTrack(dir) {
+            if(!player) return;
+            trackIdx = (trackIdx + dir + songs.length) % songs.length;
+            player.loadVideoById(songs[trackIdx].id);
+        }
+
+        function setupMediaSession() {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.setActionHandler('play', togglePlay);
+                navigator.mediaSession.setActionHandler('pause', togglePlay);
+                navigator.mediaSession.setActionHandler('previoustrack', () => changeTrack(-1));
+                navigator.mediaSession.setActionHandler('nexttrack', () => changeTrack(1));
+            }
+        }
+
+        function updateMediaMetadata() {
+            if ('mediaSession' in navigator) {
+                navigator.mediaSession.metadata = new MediaMetadata({
+                    title: songs[trackIdx].name,
+                    artist: '90s Romantic Mixtape',
+                    artwork: [{ src: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=512', sizes: '512x512', type: 'image/jpeg' }]
+                });
+            }
+        }
+
+        // Progress Loop
+        setInterval(() => {
+            if (player && isPlaying && player.getCurrentTime) {
+                let pct = (player.getCurrentTime() / player.getDuration()) * 100;
+                document.getElementById('progress-fill').style.width = pct + "%";
+            }
+        }, 1000);
+    </script>
+</body>
+</html>
