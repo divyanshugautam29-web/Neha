@@ -3,258 +3,413 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>For Neha My Bacha ❤️</title>
-    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+    <title>90s & Romantic | Divyanshu Playlist</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Playfair+Display:ital,wght@0,700;1,400&family=Poppins:wght@300;400;600&family=Space+Mono&display=swap" rel="stylesheet">
     <style>
-        :root { --accent: #ff85a2; --bg: #0a0a0c; --glass: rgba(255, 255, 255, 0.08); }
+        :root {
+            --vintage-gold: #d4a373;
+            --dusty-rose: #e5989b;
+            --deep-sepia: #1a120b;
+            --glass: rgba(255, 255, 255, 0.05);
+            --neon-glow: 0 0 15px rgba(229, 152, 155, 0.5);
+        }
+
         * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
-        
-        body { 
-            background: var(--bg); color: #fff; font-family: 'Poppins', sans-serif; 
-            height: 100vh; display: flex; flex-direction: column; overflow: hidden;
+
+        body {
+            background-color: var(--deep-sepia);
+            color: #fefae0;
+            font-family: 'Poppins', sans-serif;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: url('https://cur.cursors-4u.net/ani/ani-1/ani1.cur'), auto;
         }
 
-        /* Romantic Background */
-        .romantic-bg {
+        /* --- 90s Cinematic Background --- */
+        .vignette {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: linear-gradient(to bottom, #1a0a0f, #0a0a0c), 
-                        url('https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&q=80&w=1000');
-            background-size: cover; background-position: center; z-index: -1;
-            animation: slowZoom 25s infinite alternate;
+            background: radial-gradient(circle, transparent 40%, black 150%);
+            z-index: 2; pointer-events: none;
         }
-        @keyframes slowZoom { from {transform: scale(1);} to {transform: scale(1.05);} }
 
-        /* Splash Screen (Parda) */
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://upload.wikimedia.org/wikipedia/commons/7/76/1k_Noise_Texture.png');
+            opacity: 0.05; z-index: 3; pointer-events: none;
+        }
+
+        .hero-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(26, 18, 11, 0.8), rgba(26, 18, 11, 0.8)),
+                        url('https://images.unsplash.com/photo-1516280440614-37939bbacd81?auto=format&fit=crop&q=80&w=2070');
+            background-size: cover; background-position: center;
+            z-index: -1; animation: subtleZoom 30s infinite alternate;
+        }
+
+        @keyframes subtleZoom { from { transform: scale(1); } to { transform: scale(1.1); } }
+
+        /* --- Header --- */
+        .header {
+            position: absolute; top: 8%; text-align: center; z-index: 5;
+        }
+
+        .main-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 8vw, 5rem);
+            font-style: italic;
+            color: var(--dusty-rose);
+            text-shadow: var(--neon-glow);
+            margin-bottom: 5px;
+            animation: drift 4s ease-in-out infinite;
+        }
+
+        .sub-tag {
+            font-family: 'Space Mono', monospace;
+            font-size: 0.7rem;
+            letter-spacing: 6px;
+            text-transform: uppercase;
+            opacity: 0.6;
+        }
+
+        /* --- Central Visual: 90s Walkman --- */
+        .center-visual {
+            position: relative;
+            width: 320px;
+            height: 320px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 4;
+            perspective: 1000px;
+        }
+
+        .walkman {
+            width: 100%;
+            filter: drop-shadow(0 20px 40px rgba(0,0,0,0.8));
+            transition: transform 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+        }
+
+        .walkman:hover { transform: rotateY(10deg) rotateX(5deg) scale(1.05); }
+
+        .label-sticker {
+            position: absolute;
+            background: #fff;
+            color: #333;
+            padding: 2px 10px;
+            font-family: 'Space Mono', monospace;
+            font-size: 10px;
+            top: 20%;
+            right: -10px;
+            transform: rotate(15deg);
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.3);
+        }
+
+        /* --- Quote Rotator --- */
+        .quote-wrap {
+            margin-top: 40px;
+            height: 50px;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        #quote {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: var(--vintage-gold);
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        /* --- Glassmorphism Music Player --- */
+        .player-bar {
+            position: fixed;
+            bottom: 40px;
+            width: 90%;
+            max-width: 500px;
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 25px;
+            padding: 20px 30px;
+            z-index: 100;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .track-info { text-align: left; }
+        .track-name { font-size: 0.85rem; font-weight: 600; letter-spacing: 1px; color: var(--dusty-rose); }
+        .track-status { font-size: 0.6rem; text-transform: uppercase; opacity: 0.5; margin-bottom: 5px; }
+
+        .controls {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .play-btn-wrap {
+            width: 55px; height: 55px;
+            background: var(--dusty-rose);
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            cursor: pointer; transition: 0.3s;
+            box-shadow: 0 0 20px rgba(229, 152, 155, 0.3);
+        }
+
+        .play-btn-wrap:hover { transform: scale(1.1); background: #fff; }
+
+        .nav-btn {
+            background: none; border: none; color: #fff;
+            font-size: 1.5rem; cursor: pointer; opacity: 0.6; transition: 0.3s;
+        }
+
+        .nav-btn:hover { opacity: 1; color: var(--vintage-gold); }
+
+        .progress-container {
+            width: 100%; height: 4px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 2px; position: relative; cursor: pointer;
+        }
+
+        #progress-fill {
+            height: 100%; width: 0%;
+            background: var(--dusty-rose);
+            box-shadow: 0 0 10px var(--dusty-rose);
+            border-radius: 2px;
+        }
+
+        /* --- Interactions --- */
+        .sparkle {
+            position: absolute; pointer-events: none;
+            animation: sparkleOut 0.8s ease-out forwards;
+            font-size: 20px;
+        }
+
+        @keyframes sparkleOut {
+            0% { transform: translate(0, 0) scale(0); opacity: 1; }
+            100% { transform: translate(var(--x), var(--y)) scale(1.5); opacity: 0; }
+        }
+
+        @keyframes drift {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-10px) rotate(1deg); }
+        }
+
+        /* --- Splash --- */
         #splash {
             position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: #000; z-index: 10000; display: flex;
-            flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; transition: 0.6s ease;
-        }
-        .heart-btn {
-            background: none; border: 2px solid var(--accent); color: var(--accent);
-            padding: 18px 45px; font-size: 16px; border-radius: 50px;
-            cursor: pointer; letter-spacing: 3px; font-weight: 600;
-            box-shadow: 0 0 30px rgba(255,133,162,0.3); animation: pulse 2s infinite;
-        }
-        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
-
-        .container {
-            flex: 1; display: flex; flex-direction: column; align-items: center;
-            padding: 20px; padding-bottom: 230px; overflow-y: auto;
+            background: var(--deep-sepia); z-index: 1000;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
 
-        .neha-msg { font-family: 'Dancing Script', cursive; font-size: 2.8rem; color: var(--accent); margin-top: 20px; text-shadow: 0 0 15px rgba(255,133,162,0.5); text-align: center;}
-
-        /* Playlist Styles */
-        .playlist {
-            width: 100%; max-width: 450px; margin-top: 30px;
-            background: var(--glass); border-radius: 25px;
-            padding: 10px; border: 1px solid rgba(255,255,255,0.1);
-        }
-        .song-item {
-            display: flex; align-items: center; padding: 12px 15px;
-            border-radius: 15px; margin-bottom: 8px; cursor: pointer;
-        }
-        .song-item.active { background: rgba(255,133,162,0.2); border: 1px solid var(--accent); }
-        .song-item .idx { width: 30px; font-size: 12px; color: var(--accent); }
-        .song-item .name { flex: 1; font-size: 13px; }
-
-        /* Player Bar */
-        .player-bar {
-            position: fixed; bottom: 0; width: 100%;
-            background: rgba(10, 10, 10, 0.98); backdrop-filter: blur(25px);
-            border-top: 1px solid rgba(255,255,255,0.15);
-            padding: 15px 20px 25px 20px; z-index: 1000;
-            display: flex; flex-direction: column; align-items: center;
+        .enter-btn {
+            background: none; border: 1px solid var(--vintage-gold);
+            color: var(--vintage-gold); padding: 15px 40px;
+            font-family: 'Space Mono', monospace; cursor: pointer;
+            letter-spacing: 4px; transition: 0.4s;
         }
 
-        .seek-container { width: 100%; display: flex; align-items: center; gap: 10px; margin-bottom: 12px; max-width: 500px; }
-        input[type="range"] { flex: 1; accent-color: var(--accent); cursor: pointer; height: 4px; }
-        .time-label { font-size: 10px; color: #888; width: 35px; text-align: center; }
+        .enter-btn:hover { background: var(--vintage-gold); color: #000; box-shadow: 0 0 30px var(--vintage-gold); }
 
-        .main-controls { display: flex; align-items: center; gap: 25px; margin-bottom: 10px;}
-        .btn { background: none; border: none; color: #fff; font-size: 26px; }
-        .play-btn { width: 55px; height: 55px; background: var(--accent); color: #000; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; }
-
-        .volume-box { display: flex; align-items: center; gap: 10px; width: 130px; opacity: 0.6; }
-
-        #yt-player { position: absolute; top: -1000px; left: -1000px; visibility: hidden; }
-        .container::-webkit-scrollbar { width: 0px; }
+        #yt-player { position: absolute; top: -1000px; }
     </style>
 </head>
 <body>
 
     <div id="splash">
-        <p style="color: var(--accent); margin-bottom: 25px; font-family: 'Dancing Script'; font-size: 28px;">For Neha my bacha...</p>
-        <button class="heart-btn" id="start-btn" onclick="forceStart()">ENTER ❤️</button>
-        <p id="loading-txt" style="color: #444; margin-top: 20px; font-size: 10px;">Loading your vibes...</p>
+        <h2 style="font-family: 'Playfair Display'; margin-bottom: 30px; font-style: italic;">Memories on Tape...</h2>
+        <button class="enter-btn" onclick="initExperience()">PRESS PLAY</button>
     </div>
 
-    <div class="romantic-bg"></div>
+    <div class="vignette"></div>
+    <div class="grain"></div>
+    <div class="hero-bg"></div>
 
-    <div class="container">
-        <h1 class="neha-msg">Neha my bacha</h1>
-        <p style="font-size: 10px; letter-spacing: 5px; color: #777; text-transform: uppercase; text-align: center;">Divyanshu Playlist</p>
+    <header class="header">
+        <div class="sub-tag">Divyanshu Playlist</div>
+        <h1 class="main-title">90s & Romantic</h1>
+    </header>
 
-        <div class="playlist" id="playlist-container"></div>
+    <main class="center-visual" onclick="clickInteraction(event)">
+        <div class="label-sticker">SIDE A: HITS</div>
+        <!-- SVG Walkman -->
+        <svg class="walkman" viewBox="0 0 500 350" xmlns="http://www.w3.org/2000/svg">
+            <rect x="50" y="50" width="400" height="250" rx="20" fill="#2c3e50" stroke="#1a1a1a" stroke-width="5"/>
+            <rect x="80" y="80" width="340" height="120" rx="10" fill="#34495e"/>
+            <circle cx="170" cy="140" r="35" fill="#1a1a1a" stroke="#d4a373" stroke-width="2" id="reel-l"/>
+            <circle cx="330" cy="140" r="35" fill="#1a1a1a" stroke="#d4a373" stroke-width="2" id="reel-r"/>
+            <rect x="180" y="220" width="140" height="50" rx="5" fill="#1a1a1a"/>
+            <text x="195" y="250" fill="#d4a373" font-family="Space Mono" font-size="12">AUTO REVERSE</text>
+            <rect x="360" y="220" width="60" height="60" rx="30" fill="#e5989b" opacity="0.3"/>
+            <line x1="170" y1="120" x2="170" y2="160" stroke="#d4a373" stroke-width="4" id="spoke-l"/>
+            <line x1="330" y1="120" x2="330" y2="160" stroke="#d4a373" stroke-width="4" id="spoke-r"/>
+        </svg>
+    </main>
+
+    <div class="quote-wrap">
+        <p id="quote">Old songs, new memories.</p>
     </div>
 
     <div class="player-bar">
-        <div id="current-track-name" style="font-size: 12px; color: var(--accent); margin-bottom: 12px; text-align: center; width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">Select a song</div>
-        <div class="seek-container">
-            <span class="time-label" id="time-curr">0:00</span>
-            <input type="range" id="seek-bar" value="0" min="0" max="100">
-            <span class="time-label" id="time-total">0:00</span>
+        <div class="progress-container" onclick="seek(event)">
+            <div id="progress-fill"></div>
         </div>
-        <div class="main-controls">
-            <button class="btn" onclick="changeTrack(-1)">⏮</button>
-            <button class="btn play-btn" id="play-trigger" onclick="togglePlay()">⏵</button>
-            <button class="btn" onclick="changeTrack(1)">⏭</button>
+        <div class="track-info">
+            <div class="track-status" id="status-txt">Cassette Loaded</div>
+            <div class="track-name" id="track-title">90s Romantic Hits</div>
         </div>
-        <div class="volume-box">
-            <span>🔈</span>
-            <input type="range" id="volume-bar" min="0" max="100" value="80">
-            <span>🔊</span>
+        <div class="controls">
+            <button class="nav-btn" onclick="prev()">⏮</button>
+            <div class="play-btn-wrap" onclick="toggle()">
+                <span id="play-icon" style="color:#000; font-size: 24px;">⏵</span>
+            </div>
+            <button class="nav-btn" onclick="next()">⏭</button>
         </div>
     </div>
 
     <div id="yt-player"></div>
 
+    <script src="https://www.youtube.com/iframe_api"></script>
     <script>
-        const songs = [
-            { id: 'wsflx5Zr5p4', name: 'I Love You - Bodyguard' },
-            { id: 'r_lxE7kF0Fo', name: 'Tu Chahiye - Bajrangi Bhaijaan' },
-            { id: 'Qhwafoo7Pnc', name: 'Jeene Laga Hoon' },
-            { id: 'RJD1fQ15I9Y', name: 'Pee Loon' },
-            { id: 'zU_UAehMrpE', name: 'Humnava - Papon' },
-            { id: 'jcV7i0WM9jU', name: 'O Khuda - Hero' },
-            { id: 'qpIdoaaPa6U', name: 'Main Hoon Hero Tera' },
-            { id: '2eliQ_KR8yA', name: 'Dil Ibadat - Tum Mile' },
-            { id: 'kyqJ_FId-_w', name: 'Zara Sa - Jannat' },
-            { id: 'LmBsyzzX5aA', name: 'Tum Mile - Title Track' },
-            { id: 'vJQCAtzSfuo', name: 'Tu Hi Meri Shab Hai' },
-            { id: 'j18MRhEfmPk', name: 'Phir Mohabbat - Murder 2' },
-            { id: 'CKJA9blyMUg', name: 'Mat Aazma Re' },
-            { id: 'OJixIQFF-wA', name: 'Tujhe Sochta Hoon' },
-            { id: 'hm-cYTDo5dA', name: 'Tujh Mein Rab Dikhta Hai' }
+        const quotes = [
+            "Agar kisi cheez ko dil se chaaho...",
+            "Songs that feel like a warm hug.",
+            "Handwritten letters and 90s radio.",
+            "Love was simpler back then.",
+            "When the lyrics actually meant something.",
+            "Nostalgia: a beautiful place to visit.",
+            "Rewinding the tape, reliving the moment."
         ];
-        
-        let trackIdx = 0, player, isPlaying = false, isReady = false;
 
-        // Render Playlist
-        const playlistContainer = document.getElementById('playlist-container');
-        songs.forEach((song, index) => {
-            const item = document.createElement('div');
-            item.className = 'song-item';
-            item.id = `song-${index}`;
-            item.innerHTML = `<span class="idx">${index + 1}</span><span class="name">${song.name}</span><span>❤️</span>`;
-            item.onclick = () => playSpecificSong(index);
-            playlistContainer.appendChild(item);
-        });
+        let quoteIdx = 0;
+        const quoteEl = document.getElementById('quote');
 
-        // Load YouTube API
-        var tag = document.createElement('script');
-        tag.src = "https://www.youtube.com/iframe_api";
-        var firstScriptTag = document.getElementsByTagName('script')[0];
-        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+        function rotateQuotes() {
+            quoteEl.style.opacity = 0;
+            setTimeout(() => {
+                quoteIdx = (quoteIdx + 1) % quotes.length;
+                quoteEl.innerText = quotes[quoteIdx];
+                quoteEl.style.opacity = 1;
+            }, 1000);
+        }
+
+        setInterval(rotateQuotes, 5000);
+        window.onload = () => { quoteEl.style.opacity = 1; };
+
+        // --- YouTube Logic ---
+        let player;
+        let isPlaying = false;
+        const playlistId = 'ON6qVMlxqqI'; // Taken from provided link
 
         function onYouTubeIframeAPIReady() {
             player = new YT.Player('yt-player', {
                 height: '0', width: '0',
-                videoId: songs[trackIdx].id,
-                playerVars: { 'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 },
-                events: { 
-                    'onReady': () => { isReady = true; document.getElementById('loading-txt').innerText = "Ready for Neha ❤️"; }, 
-                    'onStateChange': onStateChange 
+                videoId: playlistId,
+                playerVars: { 
+                    'autoplay': 0, 'controls': 0, 'playsinline': 1, 'rel': 0 
+                },
+                events: {
+                    'onStateChange': onPlayerStateChange,
+                    'onReady': () => { console.log("Tape Ready"); }
                 }
             });
         }
 
-        // Force Start: Ab ye kabhi freeze nahi hoga
-        function forceStart() {
-            const splash = document.getElementById('splash');
-            splash.style.opacity = '0';
-            setTimeout(() => { splash.style.display = 'none'; }, 600);
+        function onPlayerStateChange(event) {
+            const btn = document.getElementById('play-icon');
+            const status = document.getElementById('status-txt');
+            const reelL = document.getElementById('reel-l');
+            const reelR = document.getElementById('reel-r');
+            const title = document.getElementById('track-title');
 
-            if(player && player.playVideo) {
-                player.playVideo();
-                player.unMute();
-                playSpecificSong(0);
-            } else {
-                // Agar API late hai, toh 1 sec baad phir try karega
-                setTimeout(() => { playSpecificSong(0); }, 1500);
-            }
-        }
-
-        function onStateChange(event) {
-            const btn = document.getElementById('play-trigger');
             if (event.data == YT.PlayerState.PLAYING) {
-                isPlaying = true; btn.innerText = "⏸";
-                updateMediaMetadata();
+                isPlaying = true;
+                btn.innerText = "⏸";
+                status.innerText = "Playing Tape";
+                title.innerText = player.getVideoData().title;
+                startReels();
             } else {
-                isPlaying = false; btn.innerText = "⏵";
-                if(event.data == YT.PlayerState.ENDED) changeTrack(1);
+                isPlaying = false;
+                btn.innerText = "⏵";
+                status.innerText = "Tape Paused";
+                stopReels();
             }
         }
 
-        function togglePlay() { isPlaying ? player.pauseVideo() : player.playVideo(); }
-
-        function playSpecificSong(index) {
-            trackIdx = index;
-            if(player && player.loadVideoById) {
-                player.loadVideoById(songs[trackIdx].id);
-                updatePlaylistUI();
-                document.getElementById('current-track-name').innerText = songs[trackIdx].name;
-            }
+        function initExperience() {
+            document.getElementById('splash').style.opacity = '0';
+            setTimeout(() => {
+                document.getElementById('splash').style.display = 'none';
+                toggle();
+            }, 1000);
         }
 
-        function changeTrack(dir) {
-            trackIdx = (trackIdx + dir + songs.length) % songs.length;
-            playSpecificSong(trackIdx);
+        function toggle() {
+            if (isPlaying) player.pauseVideo();
+            else player.playVideo();
         }
 
-        function updatePlaylistUI() {
-            document.querySelectorAll('.song-item').forEach(el => el.classList.remove('active'));
-            const activeItem = document.getElementById(`song-${trackIdx}`);
-            if(activeItem) activeItem.classList.add('active');
+        function next() { player.nextVideo() || player.seekTo(player.getCurrentTime() + 30); }
+        function prev() { player.previousVideo() || player.seekTo(0); }
+
+        function seek(e) {
+            const container = e.currentTarget;
+            const percent = e.offsetX / container.offsetWidth;
+            player.seekTo(player.getDuration() * percent);
         }
 
-        // Seeking (Aage-Piche)
-        const seekBar = document.getElementById('seek-bar');
-        seekBar.oninput = function() { player.seekTo(player.getDuration() * (seekBar.value / 100)); };
-
-        // Volume Slider
-        const volumeBar = document.getElementById('volume-bar');
-        volumeBar.oninput = function() { player.setVolume(volumeBar.value); };
-
-        function formatTime(time) {
-            const min = Math.floor(time / 60), sec = Math.floor(time % 60);
-            return `${min}:${sec < 10 ? '0' + sec : sec}`;
-        }
-
+        // Progress Loop
         setInterval(() => {
             if (player && isPlaying && player.getCurrentTime) {
-                const curr = player.getCurrentTime(), dur = player.getDuration();
-                document.getElementById('time-curr').innerText = formatTime(curr);
-                document.getElementById('time-total').innerText = formatTime(dur);
-                seekBar.value = (curr / dur) * 100;
+                const pct = (player.getCurrentTime() / player.getDuration()) * 100;
+                document.getElementById('progress-fill').style.width = pct + "%";
             }
         }, 1000);
 
-        function updateMediaMetadata() {
-            if ('mediaSession' in navigator) {
-                navigator.mediaSession.metadata = new MediaMetadata({
-                    title: songs[trackIdx].name,
-                    artist: 'Neha my bacha ❤️',
-                    artwork: [{ src: 'https://images.unsplash.com/photo-1518621736915-f3b1c41bfd00?auto=format&fit=crop&q=80&w=512', sizes: '512x512', type: 'image/jpeg' }]
-                });
-                navigator.mediaSession.setActionHandler('play', () => player.playVideo());
-                navigator.mediaSession.setActionHandler('pause', () => player.pauseVideo());
-                navigator.mediaSession.setActionHandler('previoustrack', () => changeTrack(-1));
-                navigator.mediaSession.setActionHandler('nexttrack', () => changeTrack(1));
-            }
+        // --- Visual Interactions ---
+        function startReels() {
+            document.getElementById('spoke-l').style.animation = "spin 2s linear infinite";
+            document.getElementById('spoke-r').style.animation = "spin 2s linear infinite";
         }
-    </script>
-</body>
-</html>
+
+        function stopReels() {
+            document.getElementById('spoke-l').style.animation = "none";
+            document.getElementById('spoke-r').style.animation = "none";
+        }
+
+        function clickInteraction(e) {
+            const emojis = ['❤️', '✨', '🎵', '🌸'];
+            for(let i=0; i<5; i++) {
+                const span = document.createElement('span');
+                span.className = 'sparkle';
+                span.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+                span.style.left = e.pageX + 'px';
+                span.style.top = e.pageY + 'px';
+                
+                const x = (Math.random() - 0.5) * 200;
+                const y = (Math.random() - 0.5) * 200;
+                span.style.setProperty('--x', `${x}px`);
+                span.style.setProperty('--y', `${y}px`);
+                
+                document.body.appendChild(span);
+                setTimeout(() => span.remove(), 800);
+            }
+            
+            // Interaction Sound Simulation
+            if (!isPlaying) toggle();
+        }
+
+        // Keyboard Interaction
+        window.addEventListener('keydown', (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                toggle();
+                const visual = document.querySelector('.walkman');
+                visual.style.transform = "scale(0.95)";
+                setTimeout(() => visual.style.tr
